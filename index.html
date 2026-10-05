@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Letter For You</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050505;
+            color: white;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           LETTER SCREEN
+        ========================= */
+
+        .letter-screen {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at center, #300000, #050505 65%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            transition: 1s;
+            padding: 20px;
+        }
+
+        .letter-screen h1 {
+            color: #ff1a1a;
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+
+            text-shadow:
+                0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+
+        /* =========================
+           ENVELOPE
+        ========================= */
+
+        .envelope {
+            width: 320px;
+            height: 210px;
+
+            background: #111;
+
+            position: relative;
+
+            border: 2px solid #ff1a1a;
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 0 35px rgba(255, 0, 0, 0.35);
+
+            transition: 0.4s;
+        }
+
+        .envelope:hover {
+            transform: scale(1.06) translateY(-5px);
+
+            box-shadow:
+                0 0 60px rgba(255, 0, 0, 0.7);
+        }
+
+
+        /* Envelope flap */
+
+        .envelope::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 0;
+            height: 0;
+
+            border-left: 159px solid transparent;
+            border-right: 159px solid transparent;
+            border-top: 115px solid #8b0000;
+
+            z-index: 2;
+        }
+
+
+        /* Letter symbol */
+
+        .envelope::after {
+            content: "LOVE";
+
+            position: absolute;
+
+            top: 80px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: #ff1a1a;
+
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+
+            z-index: 5;
+        }
+
+
+        .click-text {
+            margin-top: 30px;
+
+            color: #aaa;
+
+            font-size: 16px;
+
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+
+            0%, 100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =========================
+           MAIN WEBSITE
+        ========================= */
+
+        .website {
+            display: none;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    #350000,
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at bottom left,
+                    #1d0000,
+                    transparent 35%
+                ),
+
+                #050505;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            height: 75px;
+
+            padding: 0 8%;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.85);
+
+            backdrop-filter: blur(10px);
+
+            border-bottom:
+                1px solid rgba(255, 0, 0, 0.25);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+            color: #ff1a1a;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+
+        nav a {
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 25px;
+
+            transition: 0.3s;
+        }
+
+
+        nav a:hover {
+            color: #ff1a1a;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 90vh;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 50px 20px;
+        }
+
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+
+        .heart {
+            color: #ff0000;
+
+            font-size: 80px;
+
+            animation:
+                heartbeat 1.2s infinite;
+
+            text-shadow:
+                0 0 15px red,
+                0 0 40px red;
+        }
+
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+
+        }
+
+
+        .hero h1 {
+            font-size: 55px;
+
+            margin: 25px 0 15px;
+
+            color: white;
+        }
+
+
+        .hero h1 span {
+            color: #ff1a1a;
+        }
+
+
+        .hero h2 {
+            font-size: 25px;
+
+            color: #ddd;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero p {
+            color: #aaa;
+
+            font-size: 18px;
+
+            line-height: 2;
+        }
+
+
+        .button {
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding: 15px 38px;
+
+            background: #ff1a1a;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border-radius: 30px;
+
+            box-shadow:
+                0 0 25px rgba(255, 0, 0, 0.4);
+
+            transition: 0.3s;
+        }
+
+
+        .button:hover {
+            background: #cc0000;
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 0 40px rgba(255, 0, 0, 0.7);
+        }
+
+
+        /* =========================
+           PHOTO SECTION
+        ========================= */
+
+        .photo-section {
+            padding: 100px 20px;
+
+            text-align: center;
+        }
+
+
+        .photo-section h2 {
+            color: #ff1a1a;
+
+            font-size: 38px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .photo-section .subtitle {
+            color: #888;
+
+            margin-bottom: 40px;
+
+            font-size: 17px;
+        }
+
+
+        .photo-container {
+            max-width: 650px;
+
+            margin: auto;
+
+            padding: 12px;
+
+            background: #0d0d0d;
+
+            border: 1px solid #ff1a1a;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 0 40px rgba(255, 0, 0, 0.18);
+
+            overflow: hidden;
+        }
+
+
+        .photo-container img {
+            width: 100%;
+
+            display: block;
+
+            border-radius: 15px;
+
+            object-fit: cover;
+
+            transition: 0.5s;
+        }
+
+
+        .photo-container:hover img {
+            transform: scale(1.03);
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            min-height: 80vh;
+
+            padding: 100px 20px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .message-box {
+            max-width: 800px;
+
+            padding: 50px;
+
+            background: rgba(15, 15, 15, 0.9);
+
+            border:
+                1px solid rgba(255, 0, 0, 0.4);
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 0 40px rgba(255, 0, 0, 0.1);
+        }
+
+
+        .message-box h2 {
+            color: #ff1a1a;
+
+            font-size: 35px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .message-box p {
+            color: #ddd;
+
+            font-size: 18px;
+
+            line-height: 2.2;
+        }
+
+
+        .message-box strong {
+            color: #ff1a1a;
+        }
+
+
+        /* =========================
+           REASONS
+        ========================= */
+
+        .reasons {
+            padding: 100px 8%;
+
+            text-align: center;
+        }
+
+
+        .reasons h2 {
+            color: #ff1a1a;
+
+            font-size: 38px;
+
+            margin-bottom: 50px;
+        }
+
+
+        .cards {
+            max-width: 1000px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 25px;
+        }
+
+
+        .card {
+            background: #0d0d0d;
+
+            border: 1px solid #300000;
+
+            padding: 35px 20px;
+
+            border-radius: 20px;
+
+            transition: 0.4s;
+        }
+
+
+        .card:hover {
+            transform: translateY(-10px);
+
+            border-color: #ff1a1a;
+
+            box-shadow:
+                0 0 30px rgba(255, 0, 0, 0.15);
+        }
+
+
+        .card h3 {
+            color: #ff1a1a;
+
+            margin-bottom: 18px;
+        }
+
+
+        .card p {
+            color: #999;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           FINAL SECTION
+        ========================= */
+
+        .final {
+            min-height: 60vh;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 40px 20px;
+        }
+
+
+        .final h2 {
+            font-size: 45px;
+
+            color: white;
+        }
+
+
+        .final h2 span {
+            color: #ff0000;
+        }
+
+
+        .final p {
+            margin-top: 20px;
+
+            color: #999;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 35px;
+
+            border-top:
+                1px solid #260000;
+
+            color: #666;
+        }
+
+
+        /* =========================
+           WEBSITE ANIMATION
+        ========================= */
+
+        .show-website {
+            animation:
+                showWebsite 1.2s forwards;
+        }
+
+
+        @keyframes showWebsite {
+
+            from {
+                opacity: 0;
+
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: scale(1);
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .letter-screen h1 {
+                font-size: 25px;
+            }
+
+
+            .envelope {
+                width: 270px;
+
+                height: 180px;
+            }
+
+
+            .envelope::before {
+                border-left-width: 134px;
+
+                border-right-width: 134px;
+
+                border-top-width: 100px;
+            }
+
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+
+            .hero h2 {
+                font-size: 21px;
+            }
+
+
+            .hero p {
+                font-size: 16px;
+            }
+
+
+            nav {
+                padding: 0 5%;
+            }
+
+
+            nav a {
+                margin-left: 10px;
+
+                font-size: 13px;
+            }
+
+
+            .message-box {
+                padding: 30px 20px;
+            }
+
+
+            .message-box h2 {
+                font-size: 28px;
+            }
+
+
+            .message-box p {
+                font-size: 16px;
+            }
+
+
+            .final h2 {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         FIRST SCREEN
+    ================================== -->
+
+    <section class="letter-screen" id="letterScreen">
+
+        <h1>
+            Someone wrote you a letter
+        </h1>
+
+
+        <div
+            class="envelope"
+            onclick="openLetter()">
+        </div>
+
+
+        <p class="click-text">
+            Click the letter to open it
+        </p>
+
+    </section>
+
+
+    <!-- =================================
+         MAIN WEBSITE
+    ================================== -->
+
+    <main
+        class="website"
+        id="website">
+
+
+        <!-- NAVBAR -->
+
+        <nav>
+
+            <div class="logo">
+                For You
+            </div>
+
+
+            <div>
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#photo">
+                    Our Photo
+                </a>
+
+                <a href="#message">
+                    My Message
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- HERO -->
+
+        <section
+            class="hero"
+            id="home">
+
+            <div class="hero-content">
+
+
+                <div class="heart">
+                    ♥
+                </div>
+
+
+                <h1>
+                    You Are My
+                    <span>
+                        Favorite Person
+                    </span>
+                </h1>
+
+
+                <h2>
+                    This little website is just for you.
+                </h2>
+
+
+                <p>
+
+                    Sometimes words are not enough
+                    to explain how much someone means
+                    to you.
+
+                    So I decided to make you something
+                    special instead.
+
+                </p>
+
+
+                <a
+                    href="#message"
+                    class="button">
+
+                    Read My Letter
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             ONE PHOTO
+        ================================== -->
+
+        <section
+            class="photo-section"
+            id="photo">
+
+
+            <h2>
+                Our Special Moment
+            </h2>
+
+
+            <p class="subtitle">
+
+                One picture, one memory,
+                and a thousand feelings.
+
+            </p>
+
+
+            <div class="photo-container">
+
+                <!--
+                    Put your picture here.
+
+                    Rename your picture to:
+                    photo.jpg
+
+                    Then put it next to this HTML file.
+                -->
+
+                <img
+                    src="/73be5f8b77b14744bfa05207bd66051a.jpg"
+                    alt="Our special memory">
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             LOVE MESSAGE
+        ================================== -->
+
+        <section
+            class="message"
+            id="message">
+
+
+            <div class="message-box">
+
+
+                <h2>
+                    A Letter From My Heart
+                </h2>
+
+
+                <p>
+
+                    My love,
+
+                    <br><br>
+
+                    I do not really know where to start,
+                    because there are so many things
+                    I want to tell you.
+
+                    <br><br>
+
+                    You are not just someone I love.
+                    You are someone who makes my days
+                    better just by being there.
+
+                    <br><br>
+
+                    I love your smile, your voice,
+                    your personality, and all the little
+                    things that make you who you are.
+
+                    <br><br>
+
+                    I may not always know how to express
+                    everything I feel, but I want you to
+                    know that you mean more to me than
+                    words can explain.
+
+                    <br><br>
+
+                    I want to be there for you when
+                    you are happy, when you are sad,
+                    when everything is going perfectly,
+                    and even when nothing seems to be
+                    going right.
+
+                    <br><br>
+
+                    Thank you for being part of my life.
+
+                    <br><br>
+
+                    And if I had to choose all over again,
+
+                    <br><br>
+
+                    <strong>
+                        I would still choose you.
+                    </strong>
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             WHY I LOVE YOU
+        ================================== -->
+
+        <section
+            class="reasons"
+            id="reasons">
+
+
+            <h2>
+                Why I Love You
+            </h2>
+
+
+            <div class="cards">
+
+
+                <div class="card">
+
+                    <h3>
+                        Your Smile
+                    </h3>
+
+                    <p>
+                        Your smile can make
+                        even my worst day better.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Your Personality
+                    </h3>
+
+                    <p>
+                        There is something about you
+                        that makes you impossible to forget.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Your Presence
+                    </h3>
+
+                    <p>
+                        Everything feels a little better
+                        whenever you are around.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Just You
+                    </h3>
+
+                    <p>
+                        I do not need a reason.
+                        I simply love you for being you.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             FINAL
+        ================================== -->
+
+        <section class="final">
+
+            <div>
+
+                <h2>
+                    You + Me =
+                    <span>
+                        Forever
+                    </span>
+                </h2>
+
+
+                <p>
+                    I hope you always remember
+                    how special you are to me.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            Made with love, just for you.
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script>
+
+        function openLetter() {
+
+            const letterScreen =
+                document.getElementById("letterScreen");
+
+            const website =
+                document.getElementById("website");
+
+
+            letterScreen.style.opacity = "0";
+
+            letterScreen.style.transform =
+                "scale(1.1)";
+
+
+            setTimeout(function () {
+
+                letterScreen.style.display =
+                    "none";
+
+
+                website.style.display =
+                    "block";
+
+
+                website.classList.add(
+                    "show-website"
+                );
+
+
+                window.scrollTo(
+                    0,
+                    0
+                );
+
+            }, 800);
+
+        }
+
+    </script>
+
+
+</body>
+</html>
+```
